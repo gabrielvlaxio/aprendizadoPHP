@@ -13,6 +13,7 @@ $conexao = $obj->conexao();
 	<title>Registrar Usuário</title>
 	<link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.css">
 	<script src="../lib/jquery-3.2.1.min.js"></script>
+	<script src="../js/funcoes.js"></script>
 	
 
 </head>
@@ -46,3 +47,33 @@ $conexao = $obj->conexao();
 	</div>
 </body>
 </html>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#registro').click(function(){
+
+			vazios=validarFormVazio('frmRegistro');
+
+			if(vazios > 0){
+				alert("Preencha os Campos!");
+				return false;
+			}
+
+			dados=$('#frmRegistro').serialize();
+			$.ajax({
+				type:"POST",
+				data:dados,
+				url:"../procedimentos/login/registrarUsuario.php",
+				success:function(r){
+					alert(r);
+
+					if(r==1){
+						alert("Inserido com Sucesso!");
+					}else{
+						alert("Erro ao Inserir");
+					}
+				}
+			});
+		});
+	});
+</script>
